@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+svg {
+    /*    width: 1024px;
+    height: 768px;*/
+}
+
+.node {
+    stroke: none;
+    fill: white;
+    opacity: 0.2;
+    transition: opacity 0.8s linear, radius 0.8s linear;
+}
+
+.node.is-inside {
+    /*fill: red;*/
+    opacity: 1;
+}
+
+.node.root-node {
+    fill: pink;
+    opacity: 1;
+}
+
+.letter {
+    stroke: white;
+    visibility: hidden;
+}
+</style>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+    <g id="lettering">
+        <polygon id="letter-o" class="letter" points="980.01 145.04 975.72 175.04 963.38 197.05 943.79 210.66 917.84 215.31 893.16 210.66 873.75 197.05 860.99 175.04 856.39 145.04 860.69 115.16 873.02 93.21 892.56 79.72 918.57 75.13 943.24 79.72 962.65 93.21 975.42 115.16 980.01 145.04 980.01 145.04" />
+        <polygon id="letter-n" class="letter" points="813.04 212.9 776.15 212.9 776.15 133.91 771.73 111.96 757.64 104.64 745.55 107.54 737.87 116.13 733.81 130.16 732.6 149.27 732.6 212.9 695.71 212.9 695.71 77.67 723.9 77.67 728.85 94.96 730.91 94.96 737.99 86.01 747.12 79.84 757.64 76.27 769.01 75.13 787.03 77.97 800.95 86.86 809.9 102.28 813.04 124.72 813.04 212.9 813.04 212.9" />
+        <g id="letter-i">
+            <polygon class="letter" points="606.15 42.71 607.73 34.06 612.02 28.5 618.43 25.53 626.23 24.68 633.98 25.53 640.33 28.5 644.68 34.06 646.31 42.71 644.68 51.3 640.33 56.92 633.98 59.94 626.23 60.85 618.43 59.94 612.02 56.92 607.73 51.3 606.15 42.71 606.15 42.71" />
+            <polygon class="letter" points="644.62 212.9 607.73 212.9 607.73 77.67 644.62 77.67 644.62 212.9 644.62 212.9" />
+        </g>
+        <polygon id="letter-v" class="letter" points="490.23 212.9 442.45 77.67 481.04 77.67 503.41 154.72 506.98 169.05 508.86 182.41 509.58 182.41 511.46 168.81 515.02 154.72 537.28 77.67 575.99 77.67 528.21 212.9 490.23 212.9 490.23 212.9" />
+        <polygon id="letter-l" class="letter" points="410.71 212.9 373.82 212.9 373.82 24.68 410.71 24.68 410.71 212.9 410.71 212.9" />
+        <polygon class="letter" points="297.69 212.9 290.55 194.51 289.46 194.51 281.48 203.88 272.77 210.36 262.18 214.11 248.58 215.31 233.34 212.72 221.18 204.85 213.13 191.55 210.23 172.5 224.02 140.75 265.27 129.44 286.8 128.71 286.8 118.55 281.96 106.21 268.41 102.22 251.42 104.76 234.79 111.53 222.81 87.1 245.31 78.15 271.19 74.88 309.96 86.74 323.45 122.78 323.45 212.9 297.69 212.9 297.69 212.9" />
+        <polygon id="letter-c" class="letter" points="126.96 64.72 107.91 68.89 94 80.87 85.47 99.86 82.57 124.96 85.17 150.12 93.16 168.69 106.94 180.18 126.96 184.11 148.56 181.69 172.08 174.79 172.08 206.24 160.59 210.36 148.98 213.14 136.82 214.77 123.46 215.31 88.02 208.78 63.22 190.4 48.7 161.85 43.99 124.72 49.43 87.89 65.4 59.04 91.4 40.23 126.96 33.52 153.39 36.84 178.73 45.97 166.64 76.45 146.68 68.23 126.96 64.72 126.96 64.72" />
+    </g>
+</svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/svg-points@6.0.0/dist/svg-points.min.js"></script>
+<script>
+var width = 1000,
+    height = 250,
+    svg = d3.select("svg").attr('width', width).attr('height', height),
+    nodeRadius = 4,
+    rootNode;
+
+class polygonModel {
+    constructor(type, attr, element) {
+        this['type'] = type;
+        this[attr] = d3.select(element).attr(attr);
+    }
+}
+
+class getPolyCoordinates {
+    constructor(x, y) {
+        this[0] = x;
+        this[1] = y;
+    }
+}
+
+var lettersPolygons = [];
+svg.selectAll('#lettering .letter').each(function() {
+    let thisPolygon = new polygonModel('polygon', 'points', this);
+    // console.log(thisPolygon);
+    let thisPolygonPointsObjects = SVGPoints.toPoints(thisPolygon);
+    // console.log(thisPolygonPoints);
+    let thisPolygonPointsArray = [];
+    thisPolygonPointsObjects.forEach(function(d) {
+        // console.log(d);
+        let thisCoords = [d.x, d.y];
+        thisPolygonPointsArray.push(thisCoords);
+    });
+
+    lettersPolygons.push(thisPolygonPointsArray);
+});
+// console.log('lettersPolygons',lettersPolygons);
+
+var nodes = [];
+
+function addNodes(n) {
+    for (var i = 0; i < n; i++) {
+        // var myX = width / 4 + Math.random() * width / 2;
+        // var myY = height / 4 + Math.random() * height / 2;
+        var myX = Math.random() * width;
+        var myY = Math.random() * height;
+        // var myX = 25 + (width - 50) * Math.random();
+        // var myY = 25 + (height - 50) * Math.random();
+        nodes.push({ 'id': i, 'r': d3.randomUniform(1, nodeRadius)(), 'x': myX, 'y': myY });
+    }
+    rootNode = nodes[0];
+    rootNode.r = nodeRadius*2;
+}
+
+function removeNodes(n) {
+    for (var i = nodes.length; i > nodes.length - n; i++) {
+        if (nodes.length > 0) {
+            var randomIndex = Math.floor(nodes.length * Math.random)
+            nodes.splice(randomIndex, 1)
+        }
+    }
+}
+
+addNodes(2000);
+
+var simulation = d3.forceSimulation(nodes)
+    // .force("center", d3.forceCenter(width / 2, height / 2))
+    // .force("y", d3.forceY(width/2))
+    // .force("x", d3.forceX(height/2))
+    .force("collide", d3.forceCollide(function(d) { return d.r + 1 }).strength(3))
+    .force("charge", d3.forceManyBody().strength(0.01))
+    .alpha(1)
+    .alphaDecay(0.01)
+    .on("tick", ticked)
+
+
+var node = svg.selectAll(".node");
+
+update();
+
+function update() {
+    var beginTime = d3.now();
+
+    function drawGraph() {
+        // Apply the general update pattern to the nodes.
+        node = node.data(nodes, function(d) { return d.id; });
+        node.exit().remove();
+        node = node.enter().append("circle")
+            .attr('class', 'node')
+            .classed('root-node', function(d){ if(d.id==0) {return true} else {return false} })
+            .merge(node)
+            .attr('cx', function(d) { return d.x; })
+            .attr('cy', function(d) { return d.y; })
+            .attr("r", function(d) { return d.r; });
+    }
+
+    drawGraph();
+
+    // Update and restart the simulation.
+    simulation.nodes(nodes);
+    simulation.alpha(1).restart();
+    simulation.on("end", function() {
+        console.log('calc done', d3.now() - beginTime);
+    })
+}
+
+function ticked() {
+
+    // ordinary tick function for force layout
+    // node.attr("cx", function(d) { return d.x; })
+    //     .attr("cy", function(d) { return d.y; })
+
+    // Bounded force layout (https://bl.ocks.org/mbostock/1129492)
+    // Math.max( nodeRadius, Math.min(width - nodeRadius, d.x) )
+    // the function above is useful for returning nodes positions within the svg and not outside of it.
+    // the last line checks if the point is inside of at least one of the polygons iomported from illustrator to the svg and it assigns a class if this evaluates as true.
+    node.attr("cx", function(d) { return d.x = Math.max(nodeRadius, Math.min(width - nodeRadius, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y)); })
+        .classed('is-inside', function(d) { return checkIfInside([d.x, d.y]) })
+}
+
+svg.on("mousemove", function() {
+        var p1 = d3.mouse(this);
+        rootNode.x = p1[0];
+        rootNode.y = p1[1];
+        simulation.alphaTarget(0.3).restart();//reheat the simulation
+    });
+
+function checkIfInside(coordinates) {
+    let flag = false;
+    lettersPolygons.forEach(function(d) {
+        let isInside = d3.polygonContains(d, coordinates);
+        if (isInside) {
+            flag = true;
+        }
+    })
+    return flag;
+}
+
+// console.log(checkIfInside([314,445]))
+
+// d3.interval(function() {
+//     nodes.pop(); // Remove c.
+//     links.pop(); // Remove c-a.
+//     links.pop(); // Remove b-c.
+//     update();
+// }, 2000, d3.now());
+
+// d3.interval(function() {
+//     nodes.push(c); // Re-add c.
+//     links.push({ source: b, target: c }); // Re-add b-c.
+//     links.push({ source: c, target: a }); // Re-add c-a.
+//     update();
+// }, 2000, d3.now() + 1000);
+</script>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+body {
+    background-color: pink;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+svg {
+        width: 500px;
+    height: 500px;
+    /*background-color: pink;*/
+    border: 1px solid purple;
+}
+
+.node {
+    stroke: none;
+    fill: TOMATO;
+    opacity: 0;
+    transition: opacity 1s linear;
+    mix-blend-mode: multiply;
+}
+
+.node.is-inside {
+    opacity: 1;
+}
+
+.node.root-node {
+    opacity: 0;
+}
+
+#lettering polygon {
+    stroke: blue;
+    visibility: hidden;
+}
+</style>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg">
+    <g id="lettering">
+        <polygon points="116.64 236.17 112.05 220.17 88.87 220.17 84.23 236.17 69.84 236.17 91.68 168.68 109.1 168.68 131.03 236.17 116.64 236.17 116.64 236.17" />
+        <polygon points="163.03 225.92 166.96 225.46 170.75 224.31 170.75 234.74 165.86 236.42 159.49 237.09 153.24 236.31 148.22 233.57 144.89 228.33 143.67 220.08 143.67 195.3 136.96 195.3 136.96 189.37 144.69 184.68 148.73 173.83 157.7 173.83 157.7 184.77 170.2 184.77 170.2 195.3 157.7 195.3 157.7 220.08 159.17 224.49 163.03 225.92 163.03 225.92" />
+        <polygon points="198.93 236.17 184.91 236.17 184.91 164.63 198.93 164.63 198.93 236.17 198.93 236.17" />
+        <polygon points="247.25 236.17 244.54 229.18 244.12 229.18 241.09 232.74 237.78 235.2 233.76 236.63 228.58 237.09 222.79 236.1 218.17 233.11 215.11 228.06 214.01 220.81 219.25 208.75 234.93 204.45 243.11 204.17 243.11 200.31 241.27 195.62 236.12 194.1 229.66 195.07 223.34 197.64 218.79 188.35 227.34 184.95 237.18 183.71 251.92 188.22 257.04 201.92 257.04 236.17 247.25 236.17 247.25 236.17" />
+        <polygon points="319.84 236.17 305.82 236.17 305.82 206.15 304.14 197.8 298.79 195.02 294.19 196.12 291.27 199.39 289.73 204.72 289.27 211.99 289.27 236.17 275.25 236.17 275.25 184.77 285.96 184.77 287.84 191.34 288.63 191.34 291.31 187.94 294.79 185.6 298.79 184.24 303.11 183.8 309.96 184.88 315.25 188.26 318.65 194.12 319.84 202.65 319.84 236.17 319.84 236.17" />
+        <polygon points="358.92 225.92 362.85 225.46 366.64 224.31 366.64 234.74 361.75 236.42 355.38 237.09 349.13 236.31 344.12 233.57 340.78 228.33 339.56 220.08 339.56 195.3 332.85 195.3 332.85 189.37 340.58 184.68 344.62 173.83 353.59 173.83 353.59 184.77 366.09 184.77 366.09 195.3 353.59 195.3 353.59 220.08 355.06 224.49 358.92 225.92 358.92 225.92" />
+        <polygon points="403.38 237.09 393.21 235.48 385.21 230.63 380 222.45 378.13 210.84 379.84 199.02 384.59 190.58 391.95 185.5 401.49 183.8 410.71 185.34 417.7 189.87 422.11 197.21 423.65 207.16 423.65 213.96 392.3 213.96 393.24 219.27 395.63 223.27 399.35 225.78 404.34 226.65 408.78 226.4 412.85 225.64 416.75 224.38 420.71 222.61 420.71 233.46 417.01 235.09 413.08 236.22 408.62 236.88 403.38 237.09 403.38 237.09" />
+        <polygon points="105.84 264.53 98.6 266.12 93.31 270.67 90.07 277.89 88.97 287.43 89.95 296.99 92.99 304.05 98.23 308.42 105.84 309.91 114.05 308.99 122.99 306.37 122.99 318.32 118.62 319.89 114.21 320.94 109.59 321.56 104.51 321.77 91.03 319.29 81.61 312.3 76.09 301.45 74.3 287.34 76.37 273.34 82.44 262.37 92.32 255.22 105.84 252.67 115.89 253.93 125.52 257.4 120.92 268.99 113.33 265.87 105.84 264.53 105.84 264.53" />
+        <polygon points="169.79 320.85 167.08 313.86 166.66 313.86 163.63 317.43 160.32 319.89 156.29 321.31 151.12 321.77 145.33 320.78 140.71 317.8 137.65 312.74 136.55 305.5 141.79 293.43 157.47 289.13 165.65 288.85 165.65 284.99 163.81 280.3 158.66 278.78 152.2 279.75 145.88 282.32 141.33 273.04 149.88 269.63 159.72 268.39 174.46 272.9 179.58 286.6 179.58 320.85 169.79 320.85 169.79 320.85" />
+        <polygon points="211.81 320.85 197.78 320.85 197.78 249.31 211.81 249.31 211.81 320.85 211.81 320.85" />
+        <polygon points="241.09 320.85 222.93 269.45 237.6 269.45 246.1 298.74 247.46 304.19 248.17 309.27 248.45 309.27 249.16 304.09 250.51 298.74 258.97 269.45 273.69 269.45 255.53 320.85 241.09 320.85 241.09 320.85" />
+        <polygon points="284.21 256.16 284.81 252.88 286.44 250.76 288.88 249.63 291.84 249.31 294.79 249.63 297.2 250.76 298.86 252.88 299.48 256.16 298.86 259.43 297.2 261.57 294.79 262.71 291.84 263.06 288.88 262.71 286.44 261.57 284.81 259.43 284.21 256.16 284.21 256.16" />
+        <polygon points="298.83 320.85 284.81 320.85 284.81 269.45 298.83 269.45 298.83 320.85 298.83 320.85" />
+        <polygon points="361.91 320.85 347.89 320.85 347.89 290.83 346.21 282.49 340.85 279.7 336.25 280.81 333.33 284.07 331.8 289.4 331.33 296.67 331.33 320.85 317.31 320.85 317.31 269.45 328.02 269.45 329.91 276.03 330.69 276.03 333.38 272.62 336.85 270.28 340.85 268.92 345.17 268.49 352.02 269.57 357.31 272.94 360.71 278.81 361.91 287.34 361.91 320.85 361.91 320.85" />
+        <polygon points="424.43 295.06 422.8 306.46 418.11 314.83 410.66 320 400.8 321.77 391.42 320 384.04 314.83 379.19 306.46 377.44 295.06 379.08 283.7 383.77 275.36 391.19 270.23 401.08 268.49 410.46 270.23 417.83 275.36 422.69 283.7 424.43 295.06 424.43 295.06" />
+    </g>
+</svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/svg-points@6.0.0/dist/svg-points.min.js"></script>
+<script>
+var width = 500,
+    height = 500,
+    svg = d3.select("svg").attr('width', width).attr('height', height),
+    nodeRadius = 3,
+    rootNode;
+
+class polygonModel {
+    constructor(type, attr, element) {
+        this['type'] = type;
+        this[attr] = d3.select(element).attr(attr);
+    }
+}
+
+var lettersPolygons = [];
+svg.selectAll('#lettering polygon').each(function() {
+    let thisPolygon = new polygonModel('polygon', 'points', this);
+    // console.log(thisPolygon);
+    let thisPolygonPointsObjects = SVGPoints.toPoints(thisPolygon);
+    // console.log(thisPolygonPoints);
+    let thisPolygonPointsArray = [];
+    thisPolygonPointsObjects.forEach(function(d) {
+        // console.log(d);
+        let thisCoords = [d.x, d.y];
+        thisPolygonPointsArray.push(thisCoords);
+    });
+
+    lettersPolygons.push(thisPolygonPointsArray);
+});
+// console.log('lettersPolygons',lettersPolygons);
+
+var nodes = [];
+
+function addNodes(n) {
+    for (var i = 0; i < n; i++) {
+        // var myX = width / 4 + Math.random() * width / 2;
+        // var myY = height / 4 + Math.random() * height / 2;
+        // var myX = Math.random() * width;
+        // var myY = Math.random() * height;
+        // var myX = 25 + (width - 50) * Math.random();
+        // var myY = 25 + (height - 50) * Math.random();
+        // var myX = width / 2;
+        // var myY = height / 2;
+        var myX = d3.randomUniform(width * 0.1, width * 0.9)();
+        var myY = d3.randomUniform(height * 0.3, height * 0.7)();
+
+        var myRadius = d3.randomUniform(1, nodeRadius)();
+        // console.log(rad);
+
+        nodes.push({ 'id': i, 'r': myRadius, 'x': myX, 'y': myY });
+    }
+    rootNode = nodes[0];
+    rootNode.r = nodeRadius * 5;
+    // rootNode.x = 291;
+    // rootNode.y = 256;
+    rootNode.x = 0;
+    rootNode.y = 0;
+}
+
+function removeNodes(n) {
+    for (var i = nodes.length; i > nodes.length - n; i++) {
+        if (nodes.length > 0) {
+            var randomIndex = Math.floor(nodes.length * Math.random)
+            nodes.splice(randomIndex, 1)
+        }
+    }
+}
+
+addNodes(3500);
+
+var simulation = d3.forceSimulation(nodes)
+    // .force("center", d3.forceCenter(width / 2, height / 2))
+    // .force("y", d3.forceY(width/2))
+    // .force("x", d3.forceX(height/2))
+    .force("collide", d3.forceCollide(function(d) { return d.r + .7 }).iterations(1))
+    // .force("charge", d3.forceManyBody())
+    .alpha(1)
+    .alphaDecay(0.01)
+    .on("tick", ticked)
+
+
+var node = svg.selectAll(".node");
+
+update();
+
+function update() {
+    var beginTime = d3.now();
+
+    function drawGraph() {
+        // Apply the general update pattern to the nodes.
+        node = node.data(nodes, function(d) { return d.id; });
+        node.exit().remove();
+        node = node.enter().append("circle")
+            .attr('class', 'node')
+            .classed('root-node', function(d) { if (d.id == 0) { return true } else { return false } })
+            .merge(node)
+            .attr('cx', function(d) { return d.x; })
+            .attr('cy', function(d) { return d.y; })
+            .attr("r", function(d) { return d.r; });
+    }
+
+    drawGraph();
+
+    // Update and restart the simulation.
+    simulation.nodes(nodes);
+    simulation.alpha(1).restart();
+    simulation.on("end", function() {
+        console.log('calc done', d3.now() - beginTime);
+    })
+}
+
+function ticked() {
+
+    // ordinary tick function for force layout
+    // node.attr("cx", function(d) { return d.x; })
+    //     .attr("cy", function(d) { return d.y; })
+
+    // Bounded force layout (https://bl.ocks.org/mbostock/1129492)
+    // Math.max( nodeRadius, Math.min(width - nodeRadius, d.x) )
+    // the function above is useful for returning nodes positions within the svg and not outside of it.
+    // the last line checks if the point is inside of at least one of the polygons iomported from illustrator to the svg and it assigns a class if this evaluates as true.
+    node.attr("cx", function(d) { return d.x = Math.max(nodeRadius, Math.min(width - nodeRadius, d.x)); })
+        .attr("cy", function(d) { return d.y = Math.max(nodeRadius, Math.min(height - nodeRadius, d.y)); })
+        .classed('is-inside', function(d) { return checkIfInside([d.x, d.y]) })
+}
+
+svg.on("mousemove", function() {
+    var p1 = d3.mouse(this);
+    rootNode.x = p1[0];
+    rootNode.y = p1[1];
+    simulation.alpha(1).restart(); //reheat the simulation
+});
+
+// svg.on("click", function() {
+//     console.log(d3.mouse(this))
+// });
+
+function checkIfInside(coordinates) {
+    let flag = false;
+    lettersPolygons.forEach(function(d) {
+        if (d3.polygonContains(d, coordinates)) {
+            flag = true;
+        }
+    })
+    return flag;
+}
+
+// console.log(checkIfInside([314,445]))
+
+// d3.interval(function() {
+//     nodes.pop(); // Remove c.
+//     links.pop(); // Remove c-a.
+//     links.pop(); // Remove b-c.
+//     update();
+// }, 2000, d3.now());
+
+// d3.interval(function() {
+//     nodes.push(c); // Re-add c.
+//     links.push({ source: b, target: c }); // Re-add b-c.
+//     links.push({ source: c, target: a }); // Re-add c-a.
+//     update();
+// }, 2000, d3.now() + 1000);
+</script>
