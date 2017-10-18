@@ -106,7 +106,7 @@ svg {
 let svg = d3.select("svg"),
   width = 500,
   height = 500,
-  nodeRadius = 2.5,
+  nodeRadius = 3.25,
   rootNode,
   nodes = [],
   node = svg.select('#logo').selectAll(".node"),
@@ -260,24 +260,21 @@ svg.on("mousemove", function() {
 svg.on("click", function() {
   // console.log(d3.mouse(this))
   addNodes(100);
-
-  // nodes.push({ 'id': nodes.length, 'r': width/50, 'fx': d3.mouse(this)[0], 'fy': d3.mouse(this)[1] });
-
   update();
 });
 
 
 //Add 100 nodes to the array, then draw the first time
-addNodes(2000);
+addNodes(1500);
 update();
 
 // add circles every tot seconds
-d3.interval(function() {
-  if (nodes.length < 1000) {
-    // console.log('interval');
-    addNodes(25);
-    update();
-  }
-}, 50, d3.now());
+// d3.interval(function() {
+//   if (nodes.length < 1000) {
+//     // console.log('interval');
+//     addNodes(25);
+//     update();
+//   }
+// }, 50, d3.now());
 
 </script>
