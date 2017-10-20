@@ -3,7 +3,7 @@
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans:700" rel="stylesheet">
 <style>
 body {
-  background-color: white;
+  /*background-color: white;*/
   background-color: #FEDEC7;
   margin: 0;
   padding: 0 5%;
@@ -25,8 +25,8 @@ svg {
 
 .node {
   stroke: none;
-  /*fill: #FEDEC7;*/
-  fill: #ffffff;
+  fill: #FEDEC7;
+  /*fill: #ffffff;*/
 
   /*opacity: .0;
     transition-property: opacity;
@@ -48,6 +48,7 @@ svg {
 .node.is-inside {
   /*opacity: 1;*/
   fill: teal;
+  fill: tomato;
   /*display: block;*/
 }
 
@@ -162,9 +163,9 @@ let svg = d3.select("svg"),
   margin = {};
 
 let config = [{
-  nodeRadius: 5,
-  collisionMargin: 1,
-  amountNodes: 1600,
+  nodeRadius: 4.5,
+  collisionMargin: .8,
+  amountNodes: 1800,
   radiusRootNode: 2,
   margin: {
     top: scaleFactor * height * 0.27,
