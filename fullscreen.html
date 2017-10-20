@@ -21,6 +21,7 @@ svg {
   width: 100%;
   height: auto;
   /*border: 1px solid black;*/
+  cursor: pointer;
 }
 
 .node {
@@ -314,9 +315,7 @@ svg.on("mousemove", function() {
 
 // add circles on click
 svg.on("click", function() {
-  console.log(d3.mouse(this))
-  // addNodes(100);
-  // update();
+  window.location = './';
   simulation.alpha(0.9).restart();
 });
 
