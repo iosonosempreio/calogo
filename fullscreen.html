@@ -4,7 +4,7 @@
 <style>
 body {
   /*background-color: white;*/
-  background-color: #FEDEC7;
+  /*background-color: #FEDEC7;*/
   margin: 0;
   padding: 0 5%;
   display: flex;
@@ -26,36 +26,19 @@ svg {
 
 .node {
   stroke: none;
-  fill: #FEDEC7;
-  /*fill: #ffffff;*/
+  fill: #ffffff;
 
-  /*opacity: .0;
-    transition-property: opacity;
-    transition-duration: .2s;
-    transition-timing-function: linear;
-    transition-delay: 0s;*/
   transition-property: fill;
-  transition-duration: .3s;
+  transition-duration: .2s;
   transition-timing-function: linear;
-  transition-delay: 0s;
-
-  /*display: none;*/
-  /*  transition-property: display;
-  transition-duration: .5s;
-  transition-timing-function: linear;
-  transition-delay: .5s;*/
+  transition-delay: .0s;
 }
 
 .node.is-inside {
-  /*opacity: 1;*/
-  fill: teal;
-  fill: tomato;
-  /*display: block;*/
+  fill: MEDIUMAQUAMARINE;
 }
 
 .node.root-node {
-  /*opacity: 1;*/
-  /*visibility: hidden;*/
   display: none;
 }
 
@@ -66,7 +49,6 @@ g text {
 #lettering polygon {
   stroke: blue;
   fill: none;
-  /*visibility: hidden;*/
   display: none;
 }
 
@@ -164,13 +146,13 @@ let svg = d3.select("svg"),
   margin = {};
 
 let config = [{
-  nodeRadius: 4.5,
-  collisionMargin: .8,
-  amountNodes: 1800,
+  nodeRadius: 3.5,
+  collisionMargin: .5,
+  amountNodes: 3800,
   radiusRootNode: 2,
   margin: {
-    top: scaleFactor * height * 0.27,
-    bottom: scaleFactor * height * 0.72,
+    top: scaleFactor * height * 0.28,
+    bottom: scaleFactor * height * 0.7,
     left: 0,
     right: scaleFactor * width
   }
@@ -224,7 +206,7 @@ function addNodes(n) {
     // let myX = [configuration.margin.left,configuration.margin.right][Math.floor(Math.random() * 2)];
     // let myY = [configuration.margin.top,configuration.margin.bottom][Math.floor(Math.random() * 2)];
 
-    let myRadius = d3.randomUniform(2, configuration.nodeRadius)();
+    let myRadius = d3.randomUniform(1, configuration.nodeRadius)();
     nodes.push({ 'id': i, 'r': myRadius, 'x': myX, 'y': myY });
   }
   if (configuration.radiusRootNode && !rootNode) {
@@ -238,15 +220,15 @@ function addNodes(n) {
 
 let xForce = d3.forceY(width / 2).strength(0.04);
 let yForce = d3.forceX(height / 2).strength(0.02);
-let chargeForce = d3.forceManyBody().strength(-0.7);
-let collideForce = d3.forceCollide(function(d) { return d.r + configuration.collisionMargin }).iterations(1).strength(1);
+let chargeForce = d3.forceManyBody().strength(0);
+let collideForce = d3.forceCollide(function(d) { return d.r + configuration.collisionMargin }).iterations(2);
 
 //Declare simaltion
 let simulation = d3.forceSimulation(nodes)
-  .force("x", xForce)
-  .force("y", yForce)
+  // .force("x", xForce)
+  // .force("y", yForce)
   .force("charge", chargeForce)
-  .force("collide", null)
+  .force("collide", collideForce)
   .alpha(1)
   .alphaDecay(0.01)
   .on("tick", ticked);
@@ -286,12 +268,12 @@ function update() {
 
 function ticked() {
 
-  if (simulation.alpha() < 0.7) {
-    simulation.force("x", null)
-      .force("y", null)
-      .force("charge", null)
-      .force("collide", collideForce)
-  }
+  // if (simulation.alpha() < 0.7) {
+  //   simulation.force("x", null)
+  //     .force("y", null)
+  //     .force("charge", null)
+  //     .force("collide", collideForce)
+  // }
 
   node.attr("cx", function(d) { return d.x = Math.max(configuration.margin.left + d.r, Math.min(configuration.margin.right - d.r, d.x)); })
     .attr("cy", function(d) { return d.y = Math.max(configuration.margin.top + d.r, Math.min(configuration.margin.bottom - d.r, d.y)); })
@@ -304,20 +286,21 @@ svg.on("mousemove", function() {
   if (rootNode) {
     rootNode.fx = p1[0];
     rootNode.fy = p1[1];
-    simulation.force("x", null)
-      .force("y", null)
-      .force("charge", null)
+    simulation
+      // .force("x", null)
+      // .force("y", null)
+      // .force("charge", null)
       .alpha(0.5)
       .restart(); //reheat the simulation
   }
 
 });
 
-// add circles on click
-svg.on("click", function() {
-  window.location = './';
-  simulation.alpha(0.9).restart();
-});
+// // add circles on click
+// svg.on("click", function() {
+//   // window.location = './';
+//   simulation.alpha(0.9).restart();
+// });
 
 
 //Add 100 nodes to the array, then draw the first time
